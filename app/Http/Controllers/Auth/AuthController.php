@@ -114,26 +114,32 @@ class AuthController extends Controller
     { 
           $this->auth->logout();
           $loginEmail = $request->input('email');
+          $whichButton = $request->input('whichButton');
           
           if($loginEmail != '')
           {
-              $isFacebook = SocialAccount::select('facebook')
-                            ->where('email',$loginEmail)
-                            ->get();
-                            
-               $isGitHub = SocialAccount::select('github')
-                            ->where('email',$loginEmail)
-                            ->get();
-                                         
-                                                      
-                    if($isFacebook)
-                        return redirect('/auth/facebook');
-                    elseif($isGitHub)
-                        return redirect('/auth/github');
-                    elseif(!$isFacebook && !$isGitHub)
-                        return redirect('/login');  
+              if($whichButton == 'facebook'){
+                  
+                   $isFacebook = SocialAccount::select('facebook')
+                                ->where('email',$loginEmail)
+                                ->first();
+                                
+                   if($isFacebook->facebook == 'yes')
+                        return redirect('/auth/facebook');            
+                   else
+                        return redirect('/login');             
+                    }
+               elseif($whichButton == 'github'){             
+                   $isGitHub = SocialAccount::select('github')
+                                ->where('email',$loginEmail)
+                                ->first();
+                    
+                    if($isGitHub->github == 'yes')
+                        return redirect('/auth/github');  
                     else
-                         return redirect('/login');  
+                        return redirect('/login'); 
+                    }
+             
           }
            else
                   return redirect('/login');

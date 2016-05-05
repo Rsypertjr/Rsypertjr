@@ -350,7 +350,7 @@
 				sType[1] = "lastname";
 				typeMessage[2] = 'Phone Number Search';
 				sType[2] = "phone";
-				typeMessage[3] = 'Select Search Type';
+				typeMessage[3] = 'Click for Search Type';
 				sType[3] = 'none';
 				$('#searchType').on('mousedown',function(){
 					$(this).focus();
@@ -362,7 +362,7 @@
 					
 					//alert(searchType);
 					$('#enterDetails').on('mousedown',function(){
-						$('#searchType').val('Select Search Type');
+						$('#searchType').val('Click for Search Type');
 					});
 				});
 				
@@ -377,9 +377,19 @@
 				stType[0] = 'asc';
 				sortMessage[1] = 'Descending Sort';
 				stType[1] = 'desc';
-				sortMessage[2] = 'Select Sort Type';
+				sortMessage[2] = 'Click for Sort Type';
 				stType[2] = 'none';
 				$('#searchOrder').on('mousedown',function(){
+					
+						var checkType = $('#searchType').val();
+						
+						
+						if(checkType == 'Click for Search Type'){
+							alert("Remember to Select a Search Type");
+							sortCounter = 2;
+						}
+				
+					
 					$(this).focus();
 					$(this).val(sortMessage[sortCounter]).fadeOut(100).fadeIn(100);
 					sortType = stType[sortCounter];
@@ -388,7 +398,7 @@
 						sortCounter = 0;
 					
 					$('#enterDetails').on('mousedown',function(){
-						$('#searchOrder').val('Select Sort Type');					
+						$('#searchOrder').val('Click for Sort Type');					
 					});
 				});
 				
@@ -421,16 +431,27 @@
                   });  
 				
 				
-			// Login Form	
-			$('#GitHubLogin').add('#FacebookLogin').on('mousedown',function(){
+		   $('#gitHubLogin').on('mousedown',function(){
+		   	
+		   	    $el = $('<input></input>').attr('type','hidden').attr('name','whichButton').val('github')
+		   	    $('#loginForm').append($el);
+		   	
+		   		$('#loginForm').submit();
+		   });
 				
-					
-					$('#loginForm').submit();
-				})	
-				
+		  		
+		   $('#facebookLogin').on('mousedown',function(){
+		   	
+		   	    
+		   	    $el = $('<input></input>').attr('type','hidden').attr('name','whichButton').val('facebook')
+		   	    $('#loginForm').append($el);
+		   	
+		   		$('#loginForm').submit();
+		   });
+						
 				
 
-            }); // End of (document).ready    
+           }); // End of (document).ready    
      
      </script> 
 <style>
