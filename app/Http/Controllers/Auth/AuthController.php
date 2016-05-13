@@ -145,6 +145,39 @@ class AuthController extends Controller
                   return redirect('/login');
     }
     
+    
+    public function login(Request $request)
+    {  
+        
+        $credentials = array(
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        );
+        
+        $user = User::where('email',$request->input('email'))  // Match input with Database
+                    ->first();
+        if(($user != '') && ($user->count() > 0)){
+                $this->auth->login($user);
+        return redirect('/contacts');
+               // if ($this->auth->attempt($credentials)) {
+                    
+                //}
+        }
+        else {
+            return redirect('/login')->withErrors([
+            'email' => 'The credentials you entered did not match our records. Try again?',
+        ]);
+        }
+        
+        
+      
+                
+    }
+    
+    
+    
+    
+    
     public function handleProviderCallback(Socialite $socialite)
     {
         $service = new Service();

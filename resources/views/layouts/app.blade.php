@@ -449,7 +449,9 @@
 		   		$('#loginForm').submit();
 		   });
 						
-				
+			
+			$('.acMessage').fadeOut(5000);
+	          		
 
            }); // End of (document).ready    
      
